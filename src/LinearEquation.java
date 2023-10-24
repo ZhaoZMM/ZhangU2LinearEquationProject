@@ -11,7 +11,7 @@ public class LinearEquation {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
-        this.y2 = y1;
+        this.y2 = y2;
     }
 
     /* Calculates and returns distance between (x1, y1) and (x2, y2), rounded to
@@ -69,7 +69,7 @@ public class LinearEquation {
     public String equation() {
         int riseY = y2 - y1;
         int runX = x2 - x1;
-        if (riseY % runX == 0) {
+        if (riseY%runX == 0) {
             if (yIntercept()==0) {
                 return "y = " + (int)slope() + "x ";
             } else {
@@ -78,7 +78,7 @@ public class LinearEquation {
         } else {
             if (runX<0){
                 if (riseY < 0) {
-                    return "y = " + (int)slope() + "x " + yIntercept();
+                    return "y = " + (int)slope() + "x " + "+"+yIntercept();
                 } else {
                     return "y = " + (riseY*-1)+"/"+(runX*-1) + "x " + yIntercept();
                 }
