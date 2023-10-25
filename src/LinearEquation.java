@@ -28,7 +28,11 @@ public class LinearEquation {
     /* Calculates and returns the y-intercept of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double yIntercept(){
-        return roundedToHundredth(y1-(slope()*x1));
+        if((int)(roundedToHundredth(y1-(slope()*x1)))==0){
+            return 0;
+        }else {
+            return roundedToHundredth(y1 - (slope() * x1));
+        }
     }
 
 
@@ -36,7 +40,7 @@ public class LinearEquation {
     /* Calculates and returns the slope of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double slope(){
-        double tempNum = (double)(y2-y1)/(double)(x2-x1);
+        double tempNum = ((double)y2-y1)/((double)x2-x1);
         return roundedToHundredth(tempNum);
     }
 
@@ -69,21 +73,33 @@ public class LinearEquation {
     public String equation() {
         int riseY = y2 - y1;
         int runX = x2 - x1;
-        if (riseY%runX == 0) {
-            if (yIntercept()==0) {
-                return "y = " + (int)slope() + "x ";
-            } else {
-                return "y = " + (int)slope() + "x "+yIntercept();
-            }
-        } else {
-            if (runX<0){
-                if (riseY < 0) {
-                    return "y = " + (int)slope() + "x " + "+"+yIntercept();
+        if(y2==y1) {
+            return "y = " + yIntercept();
+        }else{
+            if (riseY % runX == 0.0) {
+                if (yIntercept() == 0.0) {
+                    return "y = " + (int) slope() + "x";
                 } else {
-                    return "y = " + (riseY*-1)+"/"+(runX*-1) + "x " + yIntercept();
+                    if (yIntercept() > 0) {
+                        return "y = " + (int) slope() + "x" + "+" + yIntercept();
+                    } else {
+                        return "y = " + (int) slope() + "x" + yIntercept();
+                    }
                 }
             } else {
-                return "y = " + (int)slope() + "x " + yIntercept();
+                if (runX < 0) {
+                    if (yIntercept() > 0) {
+                        return "y = " + (riseY * -1) + "/" + (runX * -1) + "x" + "+" + yIntercept();
+                    } else {
+                        return "y = " + (riseY * -1) + "/" + (runX * -1) + "x" + yIntercept();
+                    }
+                } else {
+                    if (yIntercept() > 0) {
+                        return "y = " + riseY + "/" + runX + "x" + "+" + yIntercept();
+                    } else {
+                        return "y = " + riseY + "/" + runX + "x" + yIntercept();
+                    }
+                }
             }
         }
     }

@@ -12,6 +12,16 @@ public class LinearEquationRunner{
         int x2 = Integer.parseInt(coord2.substring(1,coord2.indexOf(",")));
         int y2 = Integer.parseInt(coord2.substring(coord2.indexOf(",")+2,coord2.indexOf(")")));
         LinearEquation eq1 = new LinearEquation(x1, y1, x2, y2);
-        System.out.println(eq1.equation());
+        System.out.println("Equation: " + eq1.equation());
+        System.out.println("Slope: " + eq1.slope());
+        System.out.println("y-intercept: " + eq1.yIntercept());
+        System.out.println("Distance: " + eq1.distance());
+        System.out.println();
+        System.out.println("----- Line info -----");
+        System.out.println(eq1.lineInfo());
+        System.out.println();
+        double testX = 4;
+        System.out.println("Coordinate for x: " + eq1.coordinateForX(testX));
+
     }
 }
