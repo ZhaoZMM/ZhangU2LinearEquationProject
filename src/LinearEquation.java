@@ -1,8 +1,8 @@
 public class LinearEquation {
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
+    private final int x1;
+    private final int y1;
+    private final int x2;
+    private final int y2;
 
     /* Creates a LinearEquation object */
   /* PRECONDITION: x1 and x2 are NOT equal (client programs are responsible for ensuring
@@ -40,7 +40,7 @@ public class LinearEquation {
     /* Calculates and returns the slope of the line between (x1, y1) and
        (x2, y2), rounded to the nearest hundredth */
     public double slope(){
-        double tempNum = ((double)y2-y1)/((double)x2-x1);
+        double tempNum = ((double) y2 - y1) / ((double) x2 - x1);
         return roundedToHundredth(tempNum);
     }
 
@@ -70,20 +70,53 @@ public class LinearEquation {
         HINT: Absolute value might be helpful for printing negative y-intercepts as
                subtraction!
      */
+
+    //String has variables for rise/run, first checks if the slope is horizontal, then checks if the fraction can be simplified
+    //then returns an equation based on whether it has a y intercept and if it is negative or positive.
+    //else it checks if the denominator is negative and if the numerator is positive/negative so it can
+    //orientate the negative sign or just remove it altogether.
     public String equation() {
         int riseY = y2 - y1;
         int runX = x2 - x1;
         if(y2==y1) {
             return "y = " + yIntercept();
         }else{
-            if (riseY % runX == 0.0) {
-                if (yIntercept() == 0.0) {
-                    return "y = " + (int) slope() + "x";
-                } else {
-                    if (yIntercept() > 0) {
-                        return "y = " + (int) slope() + "x" + "+" + yIntercept();
+            if (riseY % runX==0) {
+                if (Math.abs(riseY)==Math.abs(runX)) {
+                    if (yIntercept() == 0.0) {
+                        if (Math.abs(riseY) == Math.abs(runX)) {
+                            if (slope() < 0) {
+                                return "y = -x";
+                            } else {
+                                return "y = x";
+                            }
+                        } else {
+                            return "y = " + (int) slope() + "x";
+                        }
                     } else {
-                        return "y = " + (int) slope() + "x" + yIntercept();
+                        if (yIntercept() > 0) {
+                            if (slope() < 0) {
+                                return "y = -x" + "+" + yIntercept();
+                            } else {
+                                return "y = x" + "+" + yIntercept();
+                            }
+                        } else {
+                            if (slope() < 0) {
+                                return "y = -x" + yIntercept();
+                            } else {
+                                return "y = x" + yIntercept();
+                            }
+                        }
+                    }
+                }else{
+                    if (yIntercept() == 0.0) {
+                        return "y = " + (int) slope() + "x";
+                    } else {
+                        if (yIntercept() > 0) {
+                            return "y = " + (int) slope() + "x" + "+" + yIntercept();
+                        } else {
+                            return "y = " + (int) slope() + "x" + yIntercept();
+                        }
                     }
                 }
             } else {
@@ -91,13 +124,21 @@ public class LinearEquation {
                     if (yIntercept() > 0) {
                         return "y = " + (riseY * -1) + "/" + (runX * -1) + "x" + "+" + yIntercept();
                     } else {
-                        return "y = " + (riseY * -1) + "/" + (runX * -1) + "x" + yIntercept();
+                        if (yIntercept()==0){
+                            return "y = " + (riseY * -1) + "/" + (runX * -1) + "x";
+                        }else {
+                            return "y = " + (riseY * -1) + "/" + (runX * -1) + "x" + yIntercept();
+                        }
                     }
                 } else {
                     if (yIntercept() > 0) {
                         return "y = " + riseY + "/" + runX + "x" + "+" + yIntercept();
                     } else {
-                        return "y = " + riseY + "/" + runX + "x" + yIntercept();
+                        if (yIntercept()==0){
+                            return "y = " + riseY + "/" + runX + "x";
+                        }else {
+                            return "y = " + riseY + "/" + runX + "x" + yIntercept();
+                        }
                     }
                 }
             }
